@@ -59,13 +59,13 @@ export default function App() {
   }
 
   const onSubmit=()=>{
-    if(query==''){
+    if(query===''){
       window.alert("Enter Some text")
       return
     }
     getNews(query).then(res=>{
       console.log(res)
-      if (res.totalResults == 0) {
+      if (res.totalResults === 0) {
         setData([]);
         setAlert(true);
       } else {
@@ -128,12 +128,12 @@ export default function App() {
               className="nav-item"
               onClick={() => loadData()}
             >
-              <a
+              <p
                 className={category === 'headlines' ? "nav-link active" : "nav-link"}
                 aria-current="page"
               >
                 Headlines
-              </a>
+              </p>
             </li>
             {categories.map((item, index) => (
               <li
@@ -141,12 +141,12 @@ export default function App() {
                 onClick={() => changeCategory(item)}
                 key={index}
               >
-                <a
+                <p
                   className={category === item ? "nav-link active" : "nav-link"}
                   aria-current="page"
                 >
                   {item}
-                </a>
+                </p>
               </li>
             ))}
           </ul>

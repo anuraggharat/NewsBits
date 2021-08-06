@@ -1,8 +1,8 @@
-a{
-    cursor: pointer !important;
-}
+
 .nav-link{
     color: grey;
+    cursor: pointer !important;
+
 }
 
 @media only screen and (max-width:600px)  {
