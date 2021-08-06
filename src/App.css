@@ -1,0 +1,12 @@
+a{
+    cursor: pointer !important;
+}
+.nav-link{
+    color: grey;
+}
+
+@media only screen and (max-width:600px)  {
+    .w-50,.w-75{
+        width: 95% !important;
+}    
+}

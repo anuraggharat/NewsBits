@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Card from './Components/Card'
 import Loader from "./Components/Loader";
-
+import './App.css' 
 import Header from './Components/Header'
 import { getHeadlines, getNews, getNewsByCategory } from "./Utils/getreq";
 
@@ -97,7 +97,7 @@ export default function App() {
 
 
   return (
-    <div className="bg-light">
+    <div className="bg-light p-0">
       <Header changeCountry={changeCountry} />
       <div className="container min-vh-100  mt-5">
         <div className="w-50 mx-auto mb-5">
