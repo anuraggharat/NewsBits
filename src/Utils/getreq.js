@@ -25,3 +25,17 @@ export const getNews = async (query) => {
     return { status: false, message: "Something went wrong!" };
   }
 };
+
+
+export const getNewsByCategory = async (category) => {
+  try {
+    const req = await axios.get(
+      `https://newsapi.org/v2/top-headlines?category=${category}&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`
+    );
+
+    return req.data;
+  } catch (error) {
+    console.log("error", error);
+    return { status: false, message: "Something went wrong!" };
+  }
+};

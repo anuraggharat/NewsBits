@@ -1,16 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 
-export default function Header({ changeCountry,country }) {
+export default function Header({ changeCountry }) {
+  const [country, setCountry] = useState("in");
 
-
-
-
-    const handleChange=(e)=>{
-        changeCountry(e.target.value)
-
-    }    
-
-
+  const handleChange = (e) => {
+    setCountry(e.target.value)
+    changeCountry(e.target.value);
+  };
 
   return (
     <nav className="navbar navbar-light bg-light">
@@ -19,7 +15,12 @@ export default function Header({ changeCountry,country }) {
           NewsBits
         </a>
         <div className="d-flex">
-          <select className="form-select h-100" aria-label="Default select example" defaultValue={country} onChange={handleChange}>
+          <select
+            className="form-select h-100"
+            aria-label="Default select example"
+            defaultValue={country}
+            onChange={handleChange}
+          >
             <option value="au">Austria</option>
             <option value="au">Australia</option>
             <option value="be">Belgium</option>

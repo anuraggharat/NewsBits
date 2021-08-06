@@ -3,23 +3,45 @@ import Card from './Components/Card'
 import Loader from "./Components/Loader";
 
 import Header from './Components/Header'
-import { getHeadlines, getNews } from "./Utils/getreq";
+import { getHeadlines, getNews, getNewsByCategory } from "./Utils/getreq";
+
+var categories = [
+  "business",
+  "entertainment",
+  "general",
+  "health",
+  "science",
+  "sports",
+  "technology",
+];
 
 export default function App() {
 
 
+  const [category, setCategory] = useState('headlines');
+
 
   const [data,setData]=useState(null)
   const [alert,setAlert]=useState(false)
-  const [country, setCountry] = useState('in');
   const [query,setQuery]=useState('')
 
 
 
 
+  const changeCategory=(newcategory)=>{
+    setCategory(newcategory)
+     getNewsByCategory(newcategory)
+       .then((res) => {
+         if (res.status) {
+           setData(res.articles);
+         } else {
+           setData(null);
+         }
+       })
+       .catch((e) => console.log(e));
+  }
 
   const changeCountry=(cou)=>{
-
         getHeadlines(cou)
           .then((res) => {
             if (res.status) {
@@ -54,7 +76,8 @@ export default function App() {
   }
 
   const loadData=()=>{
-    getHeadlines(country).then(res=>{
+    setCategory('headlines')
+    getHeadlines().then(res=>{
       if(res.status){
         setData(res.articles)
               }
@@ -75,7 +98,7 @@ export default function App() {
 
   return (
     <div className="bg-light">
-      <Header changeCountry={changeCountry} country={country} />
+      <Header changeCountry={changeCountry} />
       <div className="container min-vh-100  mt-5">
         <div className="w-50 mx-auto mb-5">
           <div className="input-group-lg input-group mb-3  ">
@@ -99,6 +122,36 @@ export default function App() {
           </div>
         </div>
 
+        <div className="container w-75 mb-5">
+          <ul className="nav nav-pills">
+            <li
+              className="nav-item"
+              onClick={() => loadData()}
+            >
+              <a
+                className={category === 'headlines' ? "nav-link active" : "nav-link"}
+                aria-current="page"
+              >
+                Headlines
+              </a>
+            </li>
+            {categories.map((item, index) => (
+              <li
+                className="nav-item"
+                onClick={() => changeCategory(item)}
+                key={index}
+              >
+                <a
+                  className={category === item ? "nav-link active" : "nav-link"}
+                  aria-current="page"
+                >
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         <div className="container w-75">
           {data ? (
             <div>
@@ -110,11 +163,14 @@ export default function App() {
             <Loader />
           )}
 
-          {
-            alert ? <div class="alert alert-danger" role="alert">
-  The topic you searched is not found! Please edit your search or go <a href="/" className="active">back</a>
-</div>:null
-          }
+          {alert ? (
+            <div className="alert alert-danger" role="alert">
+              The topic you searched is not found! Please edit your search or go{" "}
+              <a href="/" className="active">
+                back
+              </a>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
